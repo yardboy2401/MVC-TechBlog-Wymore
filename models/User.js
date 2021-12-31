@@ -16,7 +16,7 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -27,6 +27,14 @@ User.init(
       validate: {
         isEmail: true,
       },
+    },
+    twitter: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    github: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     password: {
       type: DataTypes.STRING,

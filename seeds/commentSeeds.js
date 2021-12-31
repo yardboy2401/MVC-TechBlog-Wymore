@@ -2,18 +2,18 @@ const { Comment } = require('../models');
 
 const commentData = [
     {
-      "description": "Second Approve Handlebars Rocks",
-      "blog_id": "3",
+      "comment_text": "Second Approve Handlebars Rocks",
+      "post_id": "3",
       "user_id": "3"
     },
     {
-        "description": "Second Approve Test Rocks",
-        "blog_id": "2",
+        "comment_text": "Second Approve Test Rocks",
+        "post_id": "2",
         "user_id": "2"
       },
       {
-        "description": "Second Approve TestTest Rocks",
-        "blog_id": "1",
+        "comment_text": "Second Approve TestTest Rocks",
+        "post_id": "1",
         "user_id": "1"
       }
   ]

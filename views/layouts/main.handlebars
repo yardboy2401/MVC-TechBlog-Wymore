@@ -1,44 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MVC Tech Blog!</title>
-  <link rel="stylesheet" href="/css/jass.css">
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8">
+    <title>Tech Blog</title>
+    <link rel="stylesheet" href="/css/main.css">
+
 </head>
 
 <body>
-  <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2">
-      <h1>
-        <span role="img" aria-label="money">💸</span>
-        <a href="/">MVC Tech Blog!</a>
-      </h1>
-      <nav>
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a href="/profile">profile</a> |
-        <button class="no-button" id="logout">logout</button>
-        {{else}}
-        <a href="/login">login</a>
-        {{/if}}
-      </nav>
-    </header>
-    <main class="container container-fluid mt-5">
-      <!-- Render the sub layout -->
-      {{{ body }}}
-    </main>
-    <footer>
-      
-    </footer>
-  </div>
+    {{!-- Nav bar that goes on every page --}}
+    <nav id="navbar">
+        <ul id="navbar-ul">
+            <li>
+                <p><a class="link" href="/">Home</a></p>
+            </li>
+            {{#if loggedIn}}
+            <li>
+                <p><a class="link" href="/dashboard">Dashboard</a></p>
+            </li>
+            <li>
+                <p><button id="logout-btn" class="btn-no-style">Logout</button> </p>
+            </li>
 
-  <!-- Render script for logged in users only -->
-  {{#if logged_in}}
-  <script src="/js/logout.js"></script>
-  {{/if}}
+            {{else}}
+            <li>
+                <p><a class="link" href="/login">Login</a></p>
+            </li>
+            {{/if}}
+        </ul>
+        <h1 id="nav-header">The Tech Blog</h1>
+    </nav>
+    {{{body}}}
+
 </body>
+{{!--
+<script src="/js/nav.js"></script> --}}
+<script src="/js/logout.js"></script>
+<script src="/js/home.js"></script>
 
 </html>
