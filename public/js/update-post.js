@@ -1,14 +1,14 @@
+//create post function
 async function createPostHandler(event) {
   event.preventDefault();
-  //get info we need
+  //get info we need from front-end fields
   const title = document.querySelector("#post-title").value.trim();
   const body = document.querySelector("#post-body").value.trim();
   const post_id = window.location.toString().split("/")[
     window.location.toString().split("/").length - 1
   ];
-  // const user_id = 1 //TODO set to session auth
   if (body) {
-    //make sure we have comment text
+    //make sure we have comment text and PUT fetch request to back-end with title/body
     const response = await fetch("/api/posts/" + post_id, {
       method: "PUT",
       body: JSON.stringify({
@@ -20,15 +20,15 @@ async function createPostHandler(event) {
       },
     });
 
-    //check if all good
+    //check if response is good
     if (response.ok) {
-      document.location.replace("/dashboard"); //replace with post id
+      //replace with post id
+      document.location.replace("/dashboard"); 
     } else {
-      alert(response.statusText); // find better way to do this
+      alert(response.statusText);
     }
   }
 }
 
-document
-  .querySelector("#create-post-btn")
-  .addEventListener("click", createPostHandler);
+//event listener for on-click of #create-post-btn
+document.querySelector("#create-post-btn").addEventListener("click", createPostHandler);

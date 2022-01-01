@@ -1,10 +1,10 @@
-//handlelogin
+//login event handler function
 async function loginFormHandler(event) {
   event.preventDefault();
   const email = document.querySelector("#email-login").value.trim();
   const password = document.querySelector("#password-login").value.trim();
 
-  //make sure they are filled
+  //make sure email and password present
   if (email && password) {
     const response = await fetch("/api/users/login", {
       method: "post",
@@ -15,6 +15,7 @@ async function loginFormHandler(event) {
       headers: { "Content-Type": "application/json" },
     });
 
+    //if response is ok respond with console message and replace front-end homepage
     if (response.ok) {
       console.log(response, " Logged in successfully!");
       document.location.replace("/");
@@ -24,16 +25,17 @@ async function loginFormHandler(event) {
   }
 }
 
-//handle signup/register
+//handler function for new signup
 async function signupFormHandler(event) {
   event.preventDefault();
   const username = document.querySelector("#username-signup").value.trim();
   const email = document.querySelector("#email-signup").value.trim();
   const password = document.querySelector("#password-signup").value.trim();
-  //check to make sure all fields have values
+  //check to make sure username/email/password have values
   if (username && email && password) {
+    //POST fetch request to back-end
     const response = await fetch("/api/users", {
-      method: "post",
+      method: "POST",
       body: JSON.stringify({
         username,
         email,
@@ -47,9 +49,9 @@ async function signupFormHandler(event) {
     } else {
       alert(response.statusText);
     }
-    //then we send in a request to log into the webpage
+    //second we send in a request to login
     const responseTwo = await fetch("/api/users/login", {
-      method: "post",
+      method: "POST",
       body: JSON.stringify({
         email,
         password,
@@ -65,11 +67,6 @@ async function signupFormHandler(event) {
     }
   }
 }
-//Add event listeners to the buttons
-document
-  .querySelector("#login-btn")
-  .addEventListener("click", loginFormHandler);
-
-document
-  .querySelector("#signup-btn")
-  .addEventListener("click", signupFormHandler);
+//Add event listeners for on-clicks for login/signup
+document.querySelector("#login-btn").addEventListener("click", loginFormHandler);
+document.querySelector("#signup-btn").addEventListener("click", signupFormHandler);
