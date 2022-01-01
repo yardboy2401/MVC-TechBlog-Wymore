@@ -6,12 +6,12 @@ Your task this week is to build a CMS-style blog site similar to a Wordpress sit
 
 ## Languages Used
 
--NodeJS
--Express
--Express-Handlebars
--Sequelize
--Express-Session
--MySQL
+- NodeJS
+- Express
+- Express-Handlebars
+- Sequelize
+- Express-Session
+- MySQL
 
 ## Links to GitHub Repo/Heroku App
 
