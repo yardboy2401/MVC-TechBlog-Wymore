@@ -18,6 +18,10 @@ const userData = [
     }
   ]
 
-const seedUsers = () => User.bulkCreate(userData);
+  //seed users and hash passwords upon creation
+const seedUsers = () => User.bulkCreate(userData, {
+  individualHooks: true,
+  returning: true,
+});
 
 module.exports = seedUsers;

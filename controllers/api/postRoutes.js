@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const { User, Post, Comment } = require("../../models");
-//get all the posts
+const { Post, Comment } = require("../../models");
+
+//get route for all the posts
 router.get("/", (req, res) => {
   Post.findAll({
     attributes: ["id", "title", "body", "user_id"],
@@ -21,7 +22,7 @@ router.get("/", (req, res) => {
     });
 });
 
-//get post by id
+//get post by specific id
 router.get("/:id", (req, res) => {
   Post.findOne({
     where: {
@@ -35,7 +36,7 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "comment_text", "user_id"],
       },
     ],
-  }) //include the posts and comments of this user
+  }) //include the posts and comments of the specific user
     .then((dbPostData) => {
       if (!dbPostData) {
         res.status(404).json({ message: "No Post found with this id" });
@@ -49,7 +50,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//add post
+//add a post
 router.post("/", (req, res) => {
   // This will make a new post
   // Expects Title, body, user_id
@@ -66,7 +67,8 @@ router.post("/", (req, res) => {
       res.status(500).json(err); //REST api needs status
     });
 });
-//update post
+
+//update a post by id
 router.put("/:id", (req, res) => {
   console.log("The id is ", req.params.id);
   Post.update(
@@ -92,7 +94,8 @@ router.put("/:id", (req, res) => {
       res.json(err);
     });
 });
-//remove post
+
+//remove a post by id
 router.delete("/:id", (req, res) => {
   Post.destroy({
     where: {
@@ -111,4 +114,6 @@ router.delete("/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
+
+//export router
 module.exports = router;

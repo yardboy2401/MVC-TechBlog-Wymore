@@ -7,8 +7,10 @@
   }
   .link {
     text-decoration: none;
-    color: #d9ead3;
+    color: darkgrey;
+    padding: 10px;
   }
+
   #navbar {
     list-style-type: none;
     padding: 20px;

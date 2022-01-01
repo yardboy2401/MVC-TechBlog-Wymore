@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User, Post, Comment } = require("../../models");
-//get all the comments
+
+//get route for all the comments
 router.get("/", (req, res) => {
   Comment.findAll({
     attributes: ["id", "comment_text", "user_id", "post_id"],
@@ -11,7 +12,7 @@ router.get("/", (req, res) => {
         attributes: ["username"],
       },
     ],
-  }) //include the posts and comments of this user
+  }) //include the posts and comments for the current user
     .then((dbCommentData) => {
       res.json(dbCommentData);
     })
@@ -21,7 +22,7 @@ router.get("/", (req, res) => {
     });
 });
 
-//get comment by id
+//get route for comment by id number
 router.get("/:id", (req, res) => {
   Comment.findOne({
     where: {
@@ -35,7 +36,7 @@ router.get("/:id", (req, res) => {
         attributes: ["username"],
       },
     ],
-  }) //include the posts and comments of this user
+  }) //include the posts and comments for the current user
     .then((dbCommentData) => {
       if (!dbCommentData) {
         res.status(404).json({ message: "No Comment found with this id" });
@@ -49,9 +50,9 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//add comment
+//add comment route
 router.post("/", (req, res) => {
-  //expects comment_text, user_id, post_id
+  //expecting comment_text, user_id, post_id
   Comment.create({
     comment_text: req.body.comment_text,
     user_id: req.session.user_id,
@@ -62,14 +63,11 @@ router.post("/", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err); //REST api needs status
+      res.status(500).json(err);
     });
 });
-//update comment
-router.put("/", (req, res) => {
-  res.send(`update comment`);
-});
-//remove comment
+
+//remove comment by id
 router.delete("/:id", (req, res) => {
   Post.destroy({
     where: {
@@ -88,4 +86,6 @@ router.delete("/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
+
+//export router 
 module.exports = router;
