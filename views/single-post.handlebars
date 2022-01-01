@@ -4,13 +4,13 @@
     <div class="container">
         <p id="post-body" class="post-text post-text-padding">{{post.body}}</p>
     </div>
-    {{!-- If this is my post i can edit and delete it --}}
+    {{!-- If this is current users post you can edit and delete it --}}
     {{#if currentUser}}
     <button id="edit-btn">Edit</button>
     <button id="delete-btn">Delete</button>
     {{/if}}
 </div>
-{{!-- Add Comment --}}
+{{!-- comment form --}}
 <div class="padding-20">
     <form id="comment-form " class="padding-20">
         <label for="comment-text">Leave A Comment</label>
@@ -18,7 +18,7 @@
         <button class="padding-20" id="post-comment-btn">Post!</button>
     </form>
 </div>
-{{!-- Handle the comments --}}
+{{!-- load the comments --}}
 {{#each post.comments as |aComment|}}
 {{> comment aComment}}
 {{/each}}
