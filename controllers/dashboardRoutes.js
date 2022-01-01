@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-// get all posts
+// route to get all the posts
 router.get('/', withAuth, (req, res) => {
   Post.findAll({
     where: {
@@ -25,7 +25,7 @@ router.get('/', withAuth, (req, res) => {
     ]
   })
   .then(dbPostData => {
-    //serialize the data before passing to the template
+    //.map the posts before passing to the dashboard template
     const posts = dbPostData.map(post => post.get({ plain: true }));
     res.render('dashboard', { posts, loggedIn: true });
   })
@@ -35,7 +35,7 @@ router.get('/', withAuth, (req, res) => {
   });
 });
 
-//get a single post
+//get route to update a single post by id
 router.get('/edit/:id', withAuth, (req, res) => {
   Post.findOne({
     where: {
@@ -76,9 +76,5 @@ router.get('/edit/:id', withAuth, (req, res) => {
     });
 });
 
-router.get('/new', (req, res) => {
-  res.render('new-post');
-});
-
-
+//export router
 module.exports = router;

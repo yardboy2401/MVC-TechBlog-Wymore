@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const { User, Post, Comment } = require("../models");
 const sequelize = require("../config/connection");
-//home route server homepage
+
+//get route for homepage all posts
 router.get("/", (req, res) => {
-  //we need to get all posts
   Post.findAll({
     attributes: ["id", "title", "body", "user_id"],
     include: [
@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
         res.status(404).json({ message: "No Posts Available" });
         return;
       }
-      const posts = dbPostData.map((post) => post.get({ plain: true })); // serialize all the posts
+      const posts = dbPostData.map((post) => post.get({ plain: true })); // .map method on all the posts
       console.log(posts);
       res.render("home", { posts, loggedIn: req.session.loggedIn });
     })
@@ -35,9 +35,9 @@ router.get("/", (req, res) => {
     });
 });
 
-//serve up the single post page
+//get route for a single post by id
 router.get("/viewpost/:id", (req, res) => {
-  //we need to get all posts
+  //find one post
   Post.findOne({
     where: {
       id: req.params.id,
@@ -64,12 +64,11 @@ router.get("/viewpost/:id", (req, res) => {
     ],
   })
     .then((dbPostData) => {
-      //serialize data
       if (!dbPostData) {
         res.status(404).json({ message: "No Posts Available" });
         return;
       }
-      const post = dbPostData.get({ plain: true }); // serialize all the posts
+      const post = dbPostData.get({ plain: true }); // .get for the post data
       console.log(post);
       const myPost = post.user_id == req.session.user_id;
       res.render("single-post", {
@@ -84,13 +83,13 @@ router.get("/viewpost/:id", (req, res) => {
     });
 });
 
-//serve up the login page
+//get route for the login page
 router.get("/login", (req, res) => {
   console.log("Is logged in?", req.session.loggedIn);
   res.render("login", { loggedIn: req.session.loggedIn });
 });
 
-//serve up the dashboard
+//get route for the dashboard based on user id
 router.get("/dashboard", (req, res) => {
   //we need to get all posts
   console.log(req.session.user_id, " this is the session id");
@@ -120,12 +119,11 @@ router.get("/dashboard", (req, res) => {
     ],
   })
     .then((dbPostData) => {
-      //serialize data
       if (!dbPostData) {
         res.status(404).json({ message: "No Posts Available" });
         return;
       }
-      const posts = dbPostData.map((post) => post.get({ plain: true })); // serialize all the posts
+      const posts = dbPostData.map((post) => post.get({ plain: true })); // .map on all the users posts
       console.log(posts);
       res.render("dashboard", { posts, loggedIn: req.session.loggedIn });
     })
@@ -135,10 +133,12 @@ router.get("/dashboard", (req, res) => {
     });
 });
 
+// .get route for create-post to create a new post
 router.get("/post", (req, res) => {
   res.render("create-post", { loggedIn: req.session.loggedIn });
 });
-//load the edit page
+
+//load the edit page for updating a post
 router.get("/edit/:id", (req, res) => {
   //    post_id: req.postID,
   res.render("edit-post", {
@@ -146,4 +146,6 @@ router.get("/edit/:id", (req, res) => {
     post_id: req.params.id,
   });
 });
+
+//export router
 module.exports = router;
