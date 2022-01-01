@@ -3,6 +3,7 @@ const sequelize = require('../config/connection');
 
 class Comment extends Model {}
 
+//Comment model/properties creation with sequelize including id/comment_text/post_id/user_id 
 Comment.init(
   {
     id: {
@@ -34,7 +35,6 @@ Comment.init(
   },
   {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'comment',
