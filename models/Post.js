@@ -3,6 +3,7 @@ const sequelize = require('../config/connection');
 
 class Post extends Model {}
 
+// Post model/properties creation with sequelize including id/title/body/user_id 
 Post.init(
   {
     id: {
@@ -18,11 +19,6 @@ Post.init(
     body: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    date_created: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -40,4 +36,5 @@ Post.init(
   }
 );
 
+//export Post model
 module.exports = Post;

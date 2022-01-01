@@ -3,11 +3,13 @@ const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class User extends Model {
+  //check password with bcrypt
   checkPassword(loginPw) {
     return bcrypt.compareSync(loginPw, this.password);
   }
 }
 
+// User model/properties creation with sequelize including id/username/email/password
 User.init(
   {
     id: {
@@ -28,14 +30,6 @@ User.init(
         isEmail: true,
       },
     },
-    twitter: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    github: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -45,6 +39,7 @@ User.init(
     },
   },
   {
+    //bcrypt hooks to hash password before create/update
     hooks: {
       beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
@@ -63,4 +58,5 @@ User.init(
   }
 );
 
+//export User model
 module.exports = User;

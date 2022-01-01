@@ -2,6 +2,7 @@ const User = require('./User');
 const Post = require('./Post');
 const Comment = require('./Comment');
 
+//relationships with foreign key reference
 User.hasMany(Post, {
   foreignKey: 'user_id',
 });
@@ -26,4 +27,5 @@ Post.hasMany(Comment, {
   foreignKey: 'post_id'
 });
 
+//export User/Post/Comment models
 module.exports = { User, Post, Comment };
