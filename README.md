@@ -1,4 +1,4 @@
-# Week 14 Homework: Model-View-Controller (MVC) Tech Blog
+# Model-View-Controller (MVC) Tech Blog-Wymore
 
 ## Your Task
 
