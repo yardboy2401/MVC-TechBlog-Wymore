@@ -15,7 +15,7 @@ Your task this week is to build a CMS-style blog site similar to a Wordpress sit
 
 ## Links to GitHub Repo/Heroku App
 
-https://github.com/yardboy2401/week14-mvctechblog-wymore
+https://github.com/yardboy2401/MVC-TechBlog-Wymore
 
 https://week14-mvctechblog-wymore.herokuapp.com/
 
